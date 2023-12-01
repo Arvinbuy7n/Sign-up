@@ -81,7 +81,7 @@ export default function Home() {
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
-        <UsernameStrength string={estimateStrength(userName)} />
+        {/* <UsernameStrength string={estimateStrength(userName)} /> */}
         <input
           type={isHidden ? "password" : "text"}
           value={password}
@@ -91,7 +91,7 @@ export default function Home() {
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
-        <button className='absolute mt-20 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
+        <button className='absolute mt-7 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
           setIsHidden(!isHidden);
         }}>{isHidden ? 'Show' : 'Hide'}</button>
         <PasswordStrength strength={calculateStrength(password)} />
