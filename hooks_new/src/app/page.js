@@ -50,10 +50,23 @@ const calculateStrength = (password) => {
   return strength;
 }
 
+const isTextContain = (userName) => {
+  return userName.length >= 10 ? 1 : 0;
+}
+
+const estimateStrength = (userName) => {
+  let string = 0;
+
+  string += isTextContain(userName);
+
+  return string;
+}
+
 
 export default function Home() {
   const [password, setPassword] = useState("");
   const [isHidden, setIsHidden] = useState(true)
+  const [userName, setUserName] = useState("");
 
   return (
     <div className='w-full h-screen bg-white m-auto max-w-[500px]'>
@@ -61,13 +74,14 @@ export default function Home() {
         <p className='text-2xl text-blue-500'>Welcome</p>
         <input
           type={"text"}
-          value={password}
+          value={userName}
           placeholder='     Username'
-          onChange={(e) => {
-            setPassword(e.target.value);
+          onChange={(event) => {
+            setUserName(event.target.value);
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
+        <UsernameStrength string={estimateStrength(userName)} />
         <input
           type={isHidden ? "password" : "text"}
           value={password}
@@ -77,7 +91,7 @@ export default function Home() {
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
-        <button className='absolute mt-7 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
+        <button className='absolute mt-20 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
           setIsHidden(!isHidden);
         }}>{isHidden ? 'Show' : 'Hide'}</button>
         <PasswordStrength strength={calculateStrength(password)} />
@@ -124,7 +138,26 @@ const PasswordStrength = (props) => {
       <p>{textMap[props.strength]}</p>
     </div >
   )
+};
+
+const useMap = {
+  0: "ihdee 10 shuu",
+  1: "10aas heterch bolohgue",
 }
+
+const stepMap = {
+  0: "green",
+  1: "red"
+}
+
+const UsernameStrength = (props) => {
+  return (
+    <div className=''>
+      <p>Username is required</p>
+    </div>
+  )
+}
+
 
 
 
