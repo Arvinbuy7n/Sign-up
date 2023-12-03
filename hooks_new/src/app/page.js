@@ -50,23 +50,13 @@ const calculateStrength = (password) => {
   return strength;
 }
 
-const isTextContain = (userName) => {
-  return userName.length >= 10 ? 1 : 0;
-}
-
-const estimateStrength = (userName) => {
-  let string = 0;
-
-  string += isTextContain(userName);
-
-  return string;
-}
-
 
 export default function Home() {
   const [password, setPassword] = useState("");
   const [isHidden, setIsHidden] = useState(true)
   const [userName, setUserName] = useState("");
+  const [isLook, setIsLook] = useState(false)
+
 
   return (
     <div className='w-full h-screen bg-white m-auto max-w-[500px]'>
@@ -81,7 +71,7 @@ export default function Home() {
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
-        {/* <UsernameStrength string={estimateStrength(userName)} /> */}
+        <UsernameStrength string={estimateStrength(userName)}/>
         <input
           type={isHidden ? "password" : "text"}
           value={password}
@@ -91,23 +81,15 @@ export default function Home() {
           }}
           className='w-[280px] h-[50px] rounded-3xl relative border-4 border-cyan-400'
         />
-        <button className='absolute mt-7 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
+        <button className='absolute mt-10 ml-52 text-teal-400 bg-slate-800 rounded-xl p-0.5' onClick={() => {
           setIsHidden(!isHidden);
         }}>{isHidden ? 'Show' : 'Hide'}</button>
         <PasswordStrength strength={calculateStrength(password)} />
+        <button className='flex mt-10 bg-blue-500 w-[300px] justify-center p-1 rounded-2xl text-white'>Log in</button>
       </div >
     </div>
   );
-}
-
-
-const textMap = {
-  0: "Weak",
-  1: "Arai gaigu",
-  2: "Bolomjiin",
-  3: "Dajgui shuu",
-  4: "Bolsoon"
-}
+};
 
 const colorMap = {
   0: "black",
@@ -134,37 +116,34 @@ const PasswordStrength = (props) => {
           ></div>
         ))}
       </div>
-
-      <p>{textMap[props.strength]}</p>
     </div >
   )
 };
 
-const useMap = {
-  0: "ihdee 10 shuu",
-  1: "10aas heterch bolohgue",
+const isTextContain = (userName) => {
+  return userName.length >= 10 ? 1 : 0;
 }
 
-const stepMap = {
-  0: "green",
-  1: "red"
-}
+const estimateStrength = (userName) => {
+  let string = 0;
+
+  string += isTextContain(userName);
+
+  return string;
+};
+
+const useMap = {
+  1: "red",
+};
 
 const UsernameStrength = (props) => {
   return (
-    <div className=''>
-      <p>Username is required</p>
+    <div>
+      <p 
+       style={{
+        backgroundColor:
+        props.string ? useMap[props.string] : ""
+      }}>Username is required</p>
     </div>
   )
-}
-
-
-
-
-
-
-
-
-{/* <img src='blue.png' className='w-5 h-5' onClick={() => {
-        setIsHidden(!isHidden);
-      }} >{isHidden ? 'Show' : 'Hide'}</img> */}
+};
